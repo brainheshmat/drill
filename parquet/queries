@@ -9,3 +9,18 @@ select count(*), columns[9] from dfs.`/data/csv/*.csv` where columns[4]>30.00 gr
 curl -X POST -H "Content-Type: application/json" -d '{"queryType":"SQL", "query": "select count(*) from dfs.tmp.`/data/csv/geo.parquet`"}' http://localhost:8047/query.json
 curl -X POST -H "Content-Type: application/json" -d '{"queryType":"SQL", "query": "select count(*) as cnt, columns[9] as site_sector from dfs.`/data/csv/*.csv` where columns[4]>30.00 group by columns[9]"}' http://localhost:8047/query.json
 curl -X POST -H "Content-Type: application/json" -d '{"queryType":"SQL", "query": "select count(*) as cnt, col9 as site_sector from dfs.tmp.`/data/csv/geo.parquet` where col4>30.00 group by col9"}' http://localhost:8047/query.json
+
+result:
+{
+  "columns" : [ "cnt", "site_sector" ],
+  "rows" : [ {
+    "cnt" : "575",
+    "site_sector" : "SD35XC068_a"
+  }, {
+    "cnt" : "399",
+    "site_sector" : "SD60XC031_a"
+  }, {
+    "cnt" : "938",
+    "site_sector" : "SD60XC075_3"
+  } ]
+}
