@@ -28,3 +28,54 @@ result:
     "site_sector" : "SD60XC075_3"
   } ]
 }
+
+-- joining two data source: parquet & mysql
+
+curl -X POST -H "Content-Type: application/json" -d '{"queryType":"SQL", "query": "select count(a.*), col9 as site_sector, b.switch from dfs.tmp.`/data/csv/geo.parquet` a join myplugin.control.full_partition_lookup b on SUBSTR(a.col9,1,9)=b.cascad group by a.col9,b.switch limit 10"}' http://localhost:8047/query.json
+result:
+{
+  "columns" : [ "EXPR$0", "site_sector", "switch" ],
+  "rows" : [ {
+    "switch" : "CRLSCAKZ00W",
+    "EXPR$0" : "1765",
+    "site_sector" : "SD34XC632_3-FDD1900"
+  }, {
+    "switch" : "CRLSCAKZ00W",
+    "EXPR$0" : "17620",
+    "site_sector" : "SD54XC847_3-FDD800"
+  }, {
+    "switch" : "CRLSCAKZ00W",
+    "EXPR$0" : "762",
+    "site_sector" : "SD03XC035_1-FDD1900"
+  }, {
+    "switch" : "CRLSCAKZ01W",
+    "EXPR$0" : "4884",
+    "site_sector" : "SD73XC130_3-FDD1900"
+  }, {
+    "switch" : "CRLSCAKZ00W",
+    "EXPR$0" : "5490",
+    "site_sector" : "SD54XC913_3-FDD1900"
+  }, {
+    "switch" : "SNDHCAXP00W",
+    "EXPR$0" : "2408",
+    "site_sector" : "SD60XC028_1-FDD1900"
+  }, {
+    "switch" : "SNDHCAXP00W",
+    "EXPR$0" : "2119",
+    "site_sector" : "SD35XC251_3-FDD1900"
+  }, {
+    "switch" : "CRLSCAKZ00W",
+    "EXPR$0" : "3592",
+    "site_sector" : "SD03XC212_3-FDD800"
+  }, {
+    "switch" : "SNDHCAXP00W",
+    "EXPR$0" : "7111",
+    "site_sector" : "SD34XC769_3-FDD1900"
+  }, {
+    "switch" : "CRLSCAKZ00W",
+    "EXPR$0" : "4622",
+    "site_sector" : "SD34XC614_1-FDD1900"
+  } ]
+}
+
+1.25 sec
