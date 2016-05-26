@@ -5,6 +5,10 @@ select count(*), col9 from dfs.tmp.`/data/csv/geo.parquet` where col4>30.00 grou
 select count(*), columns[9] from dfs.`/data/csv/*.csv` where columns[4]>30.00 group by columns[9];
 0.709 sec, 957M, 3,795,902 records
 
+
+- register a new storage plugin:
+curl -X POST -H "Content-Type: application/json" -d '{"name":"mysql", "config":{"type": "jdbc", "driver": "com.mysql.jdbc.Driver","url": "jdbc:mysql://localhost:3306","username": "gta_ro","password": "glacier","enabled": true}}' http://localhost:8047/storage/mysql.json
+
 - Calling Drill Query API:
 curl -X POST -H "Content-Type: application/json" -d '{"queryType":"SQL", "query": "select count(*) from dfs.tmp.`/data/csv/geo.parquet`"}' http://localhost:8047/query.json
 curl -X POST -H "Content-Type: application/json" -d '{"queryType":"SQL", "query": "select count(*) as cnt, columns[9] as site_sector from dfs.`/data/csv/*.csv` where columns[4]>30.00 group by columns[9]"}' http://localhost:8047/query.json
