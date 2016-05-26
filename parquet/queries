@@ -1,0 +1,6 @@
+- Querying Parquet
+select count(*), col9 from dfs.tmp.`/data/csv/geo.parquet` where col4>30.00 group by col9;
+0.417 sec
+- Querying CSV
+select count(*), columns[9] from dfs.`/data/csv/*.csv` where columns[4]>30.00 group by columns[9];
+0.709 sec
